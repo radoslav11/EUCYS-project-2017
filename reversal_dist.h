@@ -1,3 +1,6 @@
+#ifndef REVERSAL_DIST_H
+#define REVERSAL_DIST_H
+
 #include <bits/stdc++.h>
 #include "Signed_reversal_distance/invdist.c"
 
@@ -182,3 +185,5 @@ vector<int> combine_permutations(vector<int> l, vector<int> r)                  
 
     return res;
 }
+
+#endif
