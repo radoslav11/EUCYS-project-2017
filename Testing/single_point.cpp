@@ -26,7 +26,7 @@ void init()                                                                     
 vector<int> gen_random_signed_permutation(vector<int> perm)                          ///get random signs for the elements of the permutation
 {
     vector<int> res;
-    for(int i = 0; i < perm.size(); i++)
+    for(int i = 0; i < (int)perm.size(); i++)
     {
         int prob = (rand() % 2); //1/2 probability for the sign to be either - or +
         if(prob) res.push_back(-perm[i]);
@@ -52,7 +52,7 @@ vector<int> combine(vector<int> l, vector<int> r)                               
     int v1 = rand() % r.size(); //a random point of crossing is choosen
 
     for(int i = 0; i < v1; i++) res.push_back(l[i]); //the first part of the resulting permutation we take from the first parrent
-    for(int i = v1; i < r.size(); i++) res.push_back(r[i]); //the second part of the resulting permutation we take from the second parrent
+    for(int i = v1; i < (int)r.size(); i++) res.push_back(r[i]); //the second part of the resulting permutation we take from the second parrent
 
     return res;
 }
@@ -127,12 +127,12 @@ void solve()                                                                    
             {
                 new_li.push_back(combine(curr_li[j].second, curr_li[i].second));
                 new_li.push_back(combine(curr_li[i].second, curr_li[j].second));
-                if(new_li.size() >= n * n) break; //if the size of the population is already n*n, the generaton is completely filled in
+                if((int)new_li.size() >= n * n) break; //if the size of the population is already n*n, the generaton is completely filled in
             }
-            if(new_li.size() >= n * n) break;
+            if((int)new_li.size() >= n * n) break;
         }
 
-        for(int i = 0; i < new_li.size(); i++) //loop for mutating the new generation
+        for(int i = 0; i < (int)new_li.size(); i++) //loop for mutating the new generation
             new_li[i] = mutate_permutation(new_li[i], PROB);                          ///mutation 1/PROB
 
         listt = new_li;

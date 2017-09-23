@@ -26,7 +26,7 @@ void init()                                                                     
 vector<int> gen_random_signed_permutation(vector<int> perm)                          ///get random signs for the elements of the permutation
 {
     vector<int> res;
-    for(int i = 0; i < perm.size(); i++)
+    for(int i = 0; i < (int)perm.size(); i++)
     {
         int prob = (rand() % 2); //1/2 probability for the sign to be either - or +
         if(prob) res.push_back(-perm[i]);
@@ -50,7 +50,7 @@ vector<int> combine(vector<int> l, vector<int> r)                               
 {
     vector<int> res; //the permutation-child of the parents l and r
 
-    for(int i = 0; i < r.size(); i++)
+    for(int i = 0; i < (int)r.size(); i++)
     {
         int v1 = rand() % 2; //if v1=1 - getting the element from the first parrent, else  - from the second
         if(v1) res.push_back(l[i]);
@@ -112,7 +112,7 @@ void solve()                                                                    
     {
         double nw_mn = result; //for comparing the smallest previously found reversal distance with the current one
         for(int i = 0; i <= n; i++)
-            for(int j = 0; j < li[i].size(); j++)
+            for(int j = 0; j < (int)li[i].size(); j++)
             {
                 dist[i][j] = reversal_distance(li[i][j]); //finding the reversal distance of a permutation with i negative signs
                 nw_mn = min(nw_mn, (double)dist[i][j]); //updating the current optimal RD if a smaller value was found
@@ -131,7 +131,7 @@ void solve()                                                                    
         for(int c = 0; c <= n; c++) //computing the RDs of the permutations with the different counts of negative signs
         {
             int sum = 0;
-            for(int i = 0; i < li[c].size(); i++)
+            for(int i = 0; i < (int)li[c].size(); i++)
                 sum += dist[c][i];
 
             avg[c] = (double)sum / (double)li[c].size(); //the average value of all the RDs of permutations with this count of negative signs
@@ -142,7 +142,7 @@ void solve()                                                                    
 
         for(int i = 0; i <= n; i++)
         {
-            for(int j = 0; j < li[i].size(); j++)
+            for(int j = 0; j < (int)li[i].size(); j++)
                 curr_li.push_back({avg[i], li[i][j]});
             li[i].clear();
         }
@@ -153,15 +153,15 @@ void solve()                                                                    
             for(int j = 0; j <= i; j++)
             {
                 new_li.push_back(combine(curr_li[j].second, curr_li[i].second));
-                if(new_li.size() >= n * n) break; //if the size of the population is already n*n, the generaton is completely filled in
+                if((int)new_li.size() >= n * n) break; //if the size of the population is already n*n, the generaton is completely filled in
             }
-            if(new_li.size() >= n * n) break;
+            if((int)new_li.size() >= n * n) break;
         }
 
-        for(int i = 0; i < new_li.size(); i++) //loop for mutating the new generation
+        for(int i = 0; i < (int)new_li.size(); i++) //loop for mutating the new generation
             new_li[i] = mutate_permutation(new_li[i], PROB);                          ///mutation 1/PROB
 
-        for(int i = 0; i < new_li.size(); i++)
+        for(int i = 0; i < (int)new_li.size(); i++)
         {
             int cnt_m = 0;
             for(int j = 0; j < n; j++)

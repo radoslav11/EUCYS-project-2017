@@ -26,7 +26,7 @@ void init()                                                                     
 vector<int> gen_random_signed_permutation(vector<int> perm)                          ///get random signs for the elements of the permutation
 {
     vector<int> res;
-    for(int i = 0; i < perm.size(); i++)
+    for(int i = 0; i < (int)perm.size(); i++)
     {
         int prob = (rand() % 2); //1/2 probability for the sign to be either - or +
         if(prob) res.push_back(-perm[i]);
@@ -50,7 +50,7 @@ vector<int> combine_50pr(vector<int> l, vector<int> r)                          
 {
     vector<int> res; //the permutation-child of the parents l and r
 
-    for(int i = 0; i < r.size(); i++)
+    for(int i = 0; i < (int)r.size(); i++)
     {
         int v1 = rand() % 2; //if v1=1 - getting the element from the first parrent, else  - from the second
         if(v1) res.push_back(l[i]);
@@ -66,7 +66,7 @@ vector<int> combine_single_point(vector<int> l, vector<int> r)                  
     int v1 = rand() % r.size(); //a random point of crossing is choosen
 
     for(int i = 0; i < v1; i++) res.push_back(l[i]); //the first part of the resulting permutation we take from the first parrent
-    for(int i = v1; i < r.size(); i++) res.push_back(r[i]); //the second part of the resulting permutation we take from the second parrent
+    for(int i = v1; i < (int)r.size(); i++) res.push_back(r[i]); //the second part of the resulting permutation we take from the second parrent
 
     return res;
 }
@@ -113,7 +113,7 @@ int solve_50pr()
     while(true)
     {
         double nw_mn = result; //for comparing the smallest previously found reversal distance with the current one
-        for(int i = 0; i < listt.size(); i++)
+        for(int i = 0; i < (int)listt.size(); i++)
         {
             dist[i]= reversal_distance(listt[i]); //finding the signed reversal distance of the current permutation
             nw_mn=min((double)dist[i], nw_mn); //updating the current optimal RD if a smaller value was found
@@ -131,7 +131,7 @@ int solve_50pr()
 
         vector<pair<int, vector<int> > > curr_li; //pair<RD, permuatation with RD, equal to that>
         vector<vector <int> > new_li; //the new generation
-        for(int i = 0; i < listt.size(); i++)
+        for(int i = 0; i < (int)listt.size(); i++)
             curr_li.push_back(make_pair(dist[i], listt[i]));
 
         sort(curr_li.begin(), curr_li.end()); //for finding the number of negative signs for which the mean of the RDs of permutations of this count of negative signs is the smallest
@@ -141,9 +141,9 @@ int solve_50pr()
             {
                 new_li.push_back(combine_50pr(curr_li[j].second, curr_li[i].second));
                 new_li.push_back(combine_50pr(curr_li[i].second, curr_li[j].second));
-                if(new_li.size() >= n * n) break; //if the size of the population is already n*n, the generaton is completely filled in
+                if((int)new_li.size() >= n * n) break; //if the size of the population is already n*n, the generaton is completely filled in
             }
-            if(new_li.size() >= n * n) break;
+            if((int)new_li.size() >= n * n) break;
         }
 
         //for(int i = 0; i < new_li.size(); i++) //loop for mutating the new generation
@@ -172,7 +172,7 @@ int solve_single_point()
     while(true)
     {
         double nw_mn = result; //for comparing the smallest previously found reversal distance with the current one
-        for(int i = 0; i < listt.size(); i++)
+        for(int i = 0; i < (int)listt.size(); i++)
         {
             dist[i]= reversal_distance(listt[i]); //finding the signed reversal distance of the current permutation
             nw_mn=min((double)dist[i], nw_mn); //updating the current optimal RD if a smaller value was found
@@ -190,7 +190,7 @@ int solve_single_point()
 
         vector<pair<int, vector<int> > > curr_li; //pair<RD, permuatation with RD, equal to that>
         vector<vector <int> > new_li; //the new generation
-        for(int i = 0; i < listt.size(); i++)
+        for(int i = 0; i < (int)listt.size(); i++)
             curr_li.push_back(make_pair(dist[i], listt[i]));
 
         sort(curr_li.begin(), curr_li.end()); //for finding the number of negative signs for which the mean of the RDs of permutations of this count of negative signs is the smallest
@@ -200,12 +200,12 @@ int solve_single_point()
             {
                 new_li.push_back(combine_single_point(curr_li[j].second, curr_li[i].second));
                 new_li.push_back(combine_single_point(curr_li[i].second, curr_li[j].second));
-                if(new_li.size() >= n * n) break; //if the size of the population is already n*n, the generaton is completely filled in
+                if((int)new_li.size() >= n * n) break; //if the size of the population is already n*n, the generaton is completely filled in
             }
-            if(new_li.size() >= n * n) break;
+            if((int)new_li.size() >= n * n) break;
         }
 
-        for(int i = 0; i < new_li.size(); i++) //loop for mutating the new generation
+        for(int i = 0; i < (int)new_li.size(); i++) //loop for mutating the new generation
             new_li[i] = mutate_permutation(new_li[i], PROB);                          ///mutation 1/PROB
 
         listt = new_li;
@@ -244,7 +244,7 @@ int solve_single_point_our()
     {
         double nw_mn = result; //for comparing the smallest previously found reversal distance with the current one
         for(int i = 0; i <= n; i++)
-            for(int j = 0; j < li[i].size(); j++)
+            for(int j = 0; j < (int)li[i].size(); j++)
             {
                 dist_our[i][j] = reversal_distance(li[i][j]); //finding the reversal distance of a permutation with i negative signs
                 nw_mn = min(nw_mn, (double)dist_our[i][j]); //updating the current optimal RD if a smaller value was found
@@ -263,7 +263,7 @@ int solve_single_point_our()
         for(int c = 0; c <= n; c++) //computing the RDs of the permutations with the different counts of negative signs
         {
             int sum = 0;
-            for(int i = 0; i < li[c].size(); i++)
+            for(int i = 0; i < (int)li[c].size(); i++)
                 sum += dist_our[c][i];
 
             avg[c] = (double)sum / (double)li[c].size(); //the average value of all the RDs of permutations with this count of negative signs
@@ -274,7 +274,7 @@ int solve_single_point_our()
 
         for(int i = 0; i <= n; i++)
         {
-            for(int j = 0; j < li[i].size(); j++)
+            for(int j = 0; j < (int)li[i].size(); j++)
                 curr_li.push_back({avg[i], li[i][j]});
             li[i].clear();
         }
@@ -285,15 +285,15 @@ int solve_single_point_our()
             for(int j = 0; j <= i; j++)
             {
                 new_li.push_back(combine_single_point(curr_li[j].second, curr_li[i].second));
-                if(new_li.size() >= n * n) break; //if the size of the population is already n*n, the generaton is completely filled in
+                if((int)new_li.size() >= n * n) break; //if the size of the population is already n*n, the generaton is completely filled in
             }
-            if(new_li.size() >= n * n) break;
+            if((int)new_li.size() >= n * n) break;
         }
 
-        for(int i = 0; i < new_li.size(); i++) //loop for mutating the new generation
+        for(int i = 0; i < (int)new_li.size(); i++) //loop for mutating the new generation
             new_li[i] = mutate_permutation(new_li[i], PROB);                          ///mutation 1/PROB
 
-        for(int i = 0; i < new_li.size(); i++)
+        for(int i = 0; i < (int)new_li.size(); i++)
         {
             int cnt_m = 0;
             for(int j = 0; j < n; j++)

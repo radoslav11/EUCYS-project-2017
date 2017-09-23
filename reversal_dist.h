@@ -23,7 +23,7 @@ bool is_sign_sorted(vector<int> perm);
 vector<int> generate_random_signed_permutation(vector<int> perm)
 {
     vector<int> res;
-    for(int i = 0; i < perm.size(); i++)
+    for(int i = 0; i < (int)perm.size(); i++)
     {
         int RD_PROB = (rand() % 2); //1/2 RD_PROBability for the sign to be either - or +
         if(RD_PROB) res.push_back(-perm[i]);
@@ -60,7 +60,7 @@ int signed_reversal_distance(vector<int> perm)
 /* function to check if a signed permutation is sorted */
 bool is_sign_sorted(vector<int> perm)
 {
-    for(int i = 0; i < perm.size(); i++)
+    for(int i = 0; i < (int)perm.size(); i++)
         if((perm[i] > 0 ? perm[i] : -perm[i]) != i + 1)
             return false;
 
@@ -74,8 +74,8 @@ void find_signed_order(vector<int> perm, vector<pair<int, int> > &answer)
 
     int current_reversal_dist = signed_reversal_distance(perm);
 
-    for(int l = 0; l < perm.size(); l++)
-        for(int r = l; r < perm.size(); r++)
+    for(int l = 0; l < (int)perm.size(); l++)
+        for(int r = l; r < (int)perm.size(); r++)
         {
             for(int i = l; i <= r; i++) perm[i] *= -1;
             reverse(perm.begin() + l, perm.begin() + r + 1);
@@ -147,12 +147,12 @@ vector<pair<int, int> > reversal_distance(vector<int> permutation)
             {
                 new_li.push_back(combine_permutations(curr_li[j].second, curr_li[i].second));
                 new_li.push_back(combine_permutations(curr_li[i].second, curr_li[j].second));
-                if(new_li.size() >= n * n) break; //if the size of the population is already n*n, the generaton is completely filled in
+                if((int)new_li.size() >= n * n) break; //if the size of the population is already n*n, the generaton is completely filled in
             }
-            if(new_li.size() >= n * n) break;
+            if((int)new_li.size() >= n * n) break;
         }
 
-        for(int i = 0; i < new_li.size(); i++) //loop for mutating the new generation
+        for(int i = 0; i < (int)new_li.size(); i++) //loop for mutating the new generation
             new_li[i] = mutate_permutation(new_li[i], RD_PROB);                          ///mutation with proability equal to 1/RD_PROB
 
         listt = new_li;
@@ -178,7 +178,7 @@ vector<int> combine_permutations(vector<int> l, vector<int> r)                  
     vector<int> res;
     int v1 = rand() % r.size();
     for(int i = 0; i < v1; i++) res.push_back(l[i]);
-    for(int i = v1; i < r.size(); i++) res.push_back(r[i]);
+    for(int i = v1; i < (int)r.size(); i++) res.push_back(r[i]);
 
     return res;
 }

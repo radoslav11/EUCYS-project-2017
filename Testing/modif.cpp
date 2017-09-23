@@ -26,7 +26,7 @@ void init()                                                                     
 vector<int> gen_random_signed_permutation(vector<int> perm)                          ///get random signs for the elements of the permutation
 {
     vector<int> res;
-    for(int i = 0; i < perm.size(); i++)
+    for(int i = 0; i < (int)perm.size(); i++)
     {
         int prob = (rand() % 2); //1/2 probability for the sign to be either - or +
         if(prob) res.push_back(-perm[i]);
@@ -77,9 +77,9 @@ void rec(vector<int> vec, int num[], int rd, int hod)                           
         return;
     }
 
-    for(int i=0; i<vec.size(); i++) if(!num[i+1]&&vec[i]==i+1) num[i+1]=hod; //if it is the FIRST time a specific element goes to its place, assigning the number of the move to the value of the element
-    for(int i=0; i<vec.size(); i++) //trying to reverse every possible subsequence to find the permutation of the 'next step" of the sorting sequence of the permutation
-        for(int j=i; j<vec.size(); j++)
+    for(int i=0; i<(int)vec.size(); i++) if(!num[i+1]&&vec[i]==i+1) num[i+1]=hod; //if it is the FIRST time a specific element goes to its place, assigning the number of the move to the value of the element
+    for(int i=0; i<(int)vec.size(); i++) //trying to reverse every possible subsequence to find the permutation of the 'next step" of the sorting sequence of the permutation
+        for(int j=i; j<(int)vec.size(); j++)
         {
             vector<int> new_perm; //for the permutation when a reversal between i and j is applied
             new_perm=vec;
@@ -102,7 +102,7 @@ vector<int> combine(vector<int> l, vector<int> r)                               
     rec(r, num2, rd2, 0); //filling num2[]
     vector<int> res; //the permutation-child of the parents l and r
 
-    for(int i = 0; i < r.size(); i++) //each element of the child-permutation has the sign of either l ot r according to the described "new kind of selection"
+    for(int i = 0; i < (int)r.size(); i++) //each element of the child-permutation has the sign of either l ot r according to the described "new kind of selection"
     {
         if(num[v1[i]]<num2[v1[i]]) res.push_back(v1[i]);
         else res.push_back(v2[i]);
@@ -131,7 +131,7 @@ void solve()                                                                    
     while(true)
     {
         double nw_mn = result; //for comparing the smallest previously found reversal distance with the current one
-        for(int i = 0; i < listt.size(); i++)
+        for(int i = 0; i < (int)listt.size(); i++)
         {
             dist[i]= reversal_distance(listt[i]); //finding the signed reversal distance of the current permutation
             nw_mn=min((double)dist[i], nw_mn); //updating the current optimal RD if a smaller value was found
@@ -149,7 +149,7 @@ void solve()                                                                    
 
         vector<pair<int, vector<int> > > curr_li; //pair<RD, permuatation with RD, equal to that>
         vector<vector <int> > new_li; //the new generation
-        for(int i = 0; i < listt.size(); i++)
+        for(int i = 0; i < (int)listt.size(); i++)
             curr_li.push_back(make_pair(dist[i], listt[i]));
 
         sort(curr_li.begin(), curr_li.end()); //for finding the number of negative signs for which the mean of the RDs of permutations of this count of negative signs is the smallest
@@ -159,12 +159,12 @@ void solve()                                                                    
             {
                 new_li.push_back(combine(curr_li[j].second, curr_li[i].second));
                 new_li.push_back(combine(curr_li[i].second, curr_li[j].second));
-                if(new_li.size() >= n * n) break; //if the size of the population is already n*n, the generaton is completely filled in
+                if((int)new_li.size() >= n * n) break; //if the size of the population is already n*n, the generaton is completely filled in
             }
-            if(new_li.size() >= n * n) break;
+            if((int)new_li.size() >= n * n) break;
         }
 
-        for(int i = 0; i < new_li.size(); i++) //loop for mutating the new generation
+        for(int i = 0; i < (int)new_li.size(); i++) //loop for mutating the new generation
             new_li[i] = mutate_permutation(new_li[i], PROB);                          ///mutation 1/PROB
 
         listt = new_li;
