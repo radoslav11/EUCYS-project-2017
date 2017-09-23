@@ -30,7 +30,7 @@ void solve()
 
     cout << endl;
     cout << "The reversal distance is equal to "<< li.size() << endl;
-    for(int i = 0; i < li.size(); i++)
+    for(int i = 0; i < (int)li.size(); i++)
     {
         cout << "After " << i + 1 << number_suffix((i + 1) % 10) << " reversal: "<< endl;
         cout << "Reverse between " << li[i].first << " and " << li[i].second << endl;
