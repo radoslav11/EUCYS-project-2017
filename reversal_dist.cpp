@@ -82,8 +82,8 @@ int main()
 	ios_base::sync_with_stdio(false);
 	cin.tie(NULL);
 
-	//read();
-	//solve();
+	read();
+	solve();
 
 	/*
 	//Monte Carlo (average of all)
