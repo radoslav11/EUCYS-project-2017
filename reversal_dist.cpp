@@ -70,7 +70,7 @@ void comparing_brute_force_and_gentetic_algorithm_maximum_difference(int n)
 	for(int runs = 0; runs < 20; runs++)
 	{
 		random_shuffle(perm.begin(), perm.end());
-		max_difference = max(max_difference, (int)reversal_distance_brute_force(perm).size() - (int)reversal_distance(perm).size());
+		max_difference = max(max_difference, (int)reversal_distance(perm).size() - (int)reversal_distance_brute_force(perm).size());
 	}
 
 	cout << "Maximum difference: " << max_difference << endl;
@@ -87,7 +87,7 @@ int main()
 
 	/*
 	//Monte Carlo (average of all)
-	for(int len = 1; len <= 15; len++)
+	for(int len = 1; len <= 20; len++)
 	{
 		cout << len << " : " << endl;
 		comparing_brute_force_and_gentetic_algorithm(len);
@@ -95,9 +95,10 @@ int main()
 	}
 	*/
 
+	
 	/*
 	//Monte Carlo (maximum difference)	
-	for(int len = 1; len <= 15; len++)
+	for(int len = 1; len <= 20; len++)
 	{
 		cout << len << " : " << endl;
 		comparing_brute_force_and_gentetic_algorithm_maximum_difference(len);
