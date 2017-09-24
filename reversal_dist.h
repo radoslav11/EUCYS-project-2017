@@ -18,8 +18,7 @@ vector<int> combine_permutations(vector<int> l, vector<int> r);
 vector<int> generate_random_signed_permutation(vector<int> perm);
 void find_signed_order(vector<int> perm, vector<pair<int, int> > &answer);
 bool is_sign_sorted(vector<int> perm);
-
-
+vector<pair<int, int> > reversal_distance_brute_force(vector<int> perm);
 
 
 /* a function that generates a random sign for every element of a permutation */
@@ -165,6 +164,29 @@ vector<pair<int, int> > reversal_distance(vector<int> permutation)
     find_signed_order(best_permutation, answer);
     return answer;
 }
+
+/* brute force which generates all signed permutations and finds the one with smallest reversal distance */
+void find_best_signed(vector<int> &ret, vector<int> &perm, int pos = 0)
+{
+	if(pos == (int)perm.size()) { if(signed_reversal_distance(perm) < signed_reversal_distance(ret)) ret = perm; return; }
+	find_best_signed(ret, perm, pos + 1);
+	perm[pos] *= -1;
+	find_best_signed(ret, perm, pos + 1);
+	perm[pos] *= -1;
+}
+
+/* a function that finds the list of reversals to sort a permutation (finds the shortest list, but works in O(2^n*n) )*/
+vector<pair<int, int> > reversal_distance_brute_force(vector<int> permutation)
+{
+    int n = permutation.size();
+    if(n <= 1) { return vector<pair<int, int> >(0, {0, 0}); }
+	vector<int> best_permutation = permutation;
+	find_best_signed(best_permutation, permutation);
+	vector<pair<int, int> > answer;
+	find_signed_order(best_permutation, answer);
+	return answer;
+}
+
 
 /* the mutation is just changing the sign of one random element of the permutation with probability 1/RD_PROB */
 vector<int> mutate_permutation(vector<int> p, int RD_PROB_F)                              ///mutate

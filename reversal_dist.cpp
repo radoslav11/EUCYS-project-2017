@@ -42,6 +42,24 @@ void solve()
     }
 }
 
+void comparing_brute_force_and_gentetic_algorithm(int n)
+{
+	vector<int> perm;
+	perm.resize(n);	
+	for(int i = 0; i < n; i++) perm[i] = i + 1;
+
+	double avg_ga = 0, avg_bf = 0; 
+	for(int runs = 0; runs < 20; runs++)
+	{
+		random_shuffle(perm.begin(), perm.end());
+		avg_ga += reversal_distance(perm).size();
+		avg_bf += reversal_distance_brute_force(perm).size();
+	}
+
+	cout << "Brute force average:  " << setprecision(6) << fixed << avg_bf / 20.0 << endl;
+	cout << "Genetic algorithm average:  " << setprecision(6) << fixed << avg_ga / 20.0 << endl;
+}
+
 int main()
 {
 	ios_base::sync_with_stdio(false);
@@ -49,5 +67,15 @@ int main()
 
 	read();
 	solve();
+
+	/*
+	for(int len = 1; len <= 15; len++)
+	{
+		cout << len << " : " << endl;
+		comparing_brute_force_and_gentetic_algorithm(len);
+		cout << endl;
+	}
+	*/
+	
 	return 0;
 }
