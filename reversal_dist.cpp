@@ -60,19 +60,48 @@ void comparing_brute_force_and_gentetic_algorithm(int n)
 	cout << "Genetic algorithm average:  " << setprecision(6) << fixed << avg_ga / 20.0 << endl;
 }
 
+void comparing_brute_force_and_gentetic_algorithm_maximum_difference(int n)
+{
+	vector<int> perm;
+	perm.resize(n);	
+	for(int i = 0; i < n; i++) perm[i] = i + 1;
+
+	int max_difference = 0;
+	for(int runs = 0; runs < 20; runs++)
+	{
+		random_shuffle(perm.begin(), perm.end());
+		max_difference = max(max_difference, (int)reversal_distance_brute_force(perm).size() - (int)reversal_distance(perm).size());
+	}
+
+	cout << "Maximum difference: " << max_difference << endl;
+}
+
+
 int main()
 {
 	ios_base::sync_with_stdio(false);
 	cin.tie(NULL);
 
-	read();
-	solve();
+	//read();
+	//solve();
 
 	/*
+	//Monte Carlo (average of all)
+	
 	for(int len = 1; len <= 15; len++)
 	{
 		cout << len << " : " << endl;
 		comparing_brute_force_and_gentetic_algorithm(len);
+		cout << endl;
+	}
+	*/
+
+	/*
+	//Monte Carlo (maximum difference)
+	for(int len = 1; len <= 15; len++)
+	{
+		cout << len << " : " << endl;
+		comparing_brute_force_and_gentetic_algorithm_maximum_difference(len);
 		cout << endl;
 	}
 	*/
