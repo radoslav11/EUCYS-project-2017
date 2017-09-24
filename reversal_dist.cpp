@@ -87,7 +87,6 @@ int main()
 
 	/*
 	//Monte Carlo (average of all)
-	
 	for(int len = 1; len <= 15; len++)
 	{
 		cout << len << " : " << endl;
@@ -97,8 +96,7 @@ int main()
 	*/
 
 	/*
-	//Monte Carlo (maximum difference)
-	
+	//Monte Carlo (maximum difference)	
 	for(int len = 1; len <= 15; len++)
 	{
 		cout << len << " : " << endl;
